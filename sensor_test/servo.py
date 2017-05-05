@@ -1,3 +1,5 @@
+#servo motor testing
+
 import RPi.GPIO as GPIO
 import time
 pin = 26
