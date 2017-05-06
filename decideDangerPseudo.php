@@ -6,6 +6,7 @@ $result2 = mysqli_query($conn, "SELECT * FROM L_indoor");
 ?>
 <?php
 if (SENSOR_DETECTED) //센서가 감지된 경우
+	time=S_time //센서가 감지된 시간
 	$a='SELECT * FROM S_detection WHERE id='.$_GET['time']; 
 	$b='SELECT * FROM L_indoor WHERE id='.$_GET['time'];
 	$result1 = mysqli_query($conn, $a);
