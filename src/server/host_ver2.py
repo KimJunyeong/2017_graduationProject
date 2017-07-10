@@ -28,5 +28,5 @@ except KeyboardInterrupt:
     server.close()
 except :
     print('Connection is closed unintendly')
-    clientsocketclose()
+    clientsocket.close()
     server.close()
