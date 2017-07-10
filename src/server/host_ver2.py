@@ -20,6 +20,7 @@ try:
     while True:
         print('I\'m waiting client call!')
         data = clientsocket.recv(maxsize)
+        print(data)
 
 except KeyboardInterrupt:
     print('Connection close')
