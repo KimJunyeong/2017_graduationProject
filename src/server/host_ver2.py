@@ -4,7 +4,7 @@
 import socket
 
 #Rasp's IP address and port number
-server_address = ('later give address', 1234)
+server_address = (socket.gethostname(), 1234)
 
 #max data size? 
 maxsize = 1024
