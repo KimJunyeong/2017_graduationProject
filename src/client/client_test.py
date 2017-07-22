@@ -7,7 +7,7 @@ max_size = 1024
 print('starting the client at', datetime.now())
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(address)
-client.sendall('hey')
+client.sendall(b'hey')
 data = client.recv(max_size)
 print('At', datetime.now(), 'someone replied', data)
 client.close()
