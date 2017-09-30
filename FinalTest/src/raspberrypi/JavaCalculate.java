@@ -76,9 +76,9 @@ public class JavaCalculate {
 	            minIndex = i;
 	        }
 	    }
-	    
-	    JavaDatabase.storeData(minIndex+1);
-	    JavaDatabase.decideDanger(minIndex+1);
+	    JavaClient.sendNode(minIndex+1);
+	   // JavaDatabase.storeData(minIndex+1);
+	   //JavaDatabase.decideDanger(minIndex+1);
 	    //JavaDatabase.storeBeaconData(intArray);
 	}
 	public static void dumpArray(double[] array) {

@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,13 +11,14 @@ import java.text.SimpleDateFormat;
 public class JavaDatabase {
 	public static void storeData(int node){
 		String url = "jdbc:mysql://localhost:3306/Be_Care?autoReconnect=true&useSSL=false";
+		//String url = "jdbc:oracle:thin:@localhost:1521:xe/Be_Care?autoReconnect=true&useSSL=false";
 		String sql = "SELECT * FROM Location ORDER BY Time DESC LIMIT 1;";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			//replace raspberrypi mysql id password
 			Connection conn = 
-					DriverManager.getConnection(url, "Approach","approach");
+					DriverManager.getConnection(url, "root","jsy123");
 			
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("insert into Location (Time, Location) values(NOW()," + node + ");");
@@ -24,6 +26,7 @@ public class JavaDatabase {
 			
 		} catch (ClassNotFoundException e) { 
 			System.out.println("JDBC driver load error");
+			System.out.println(e);
 		} catch (SQLException e) { 
 			System.out.println("DB connection error");
 		} 
@@ -73,7 +76,7 @@ public class JavaDatabase {
 			Class.forName("com.mysql.jdbc.Driver");
 			//enter raspberrypi mysql id, password
 			Connection conn = 
-					DriverManager.getConnection(url, "Approach","approach");		
+					DriverManager.getConnection(url, "root","jsy123");		
 			
 			Statement stmt1 = conn.createStatement();
 			Statement stmt2 = conn.createStatement();
