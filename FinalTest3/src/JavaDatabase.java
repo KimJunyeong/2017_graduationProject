@@ -91,7 +91,7 @@ public class JavaDatabase {
 				int doorlock = rs1.getInt("Doorlock");
 				Time door_time = rs1.getTime("Time");
 				//Flame data
-				Boolean gas = rs1.getBoolean("Flame");
+				int gas = rs1.getInt("Flame");
 				Time flame_time = rs2.getTime("Time");
 				//System.out.println(s_time+", "+lock+", "+distance+", "+gas);
 				if(rs3.next()){
@@ -107,7 +107,7 @@ public class JavaDatabase {
 						long t_difference = location_time.getTime()-door_time.getTime();
 						Statement stmt = conn.createStatement();
 						//if the sensed person is patient,
-						if(node == 10){
+						if(node == 7){
 							//if(t_difference<-10000||t_difference>50000){
 							if(t_difference<-50000||t_difference>50000){
 								stmt.executeUpdate("UPDATE Door SET Doorlock=1 WHERE Time = "+door_time+";");
@@ -121,12 +121,21 @@ public class JavaDatabase {
 						}
 					}
 					
-					if(node== 1){
+					//if(node== 1){
+					if(gas==1){
 						long t_difference = location_time.getTime()-flame_time.getTime();
+						Statement stmt = conn.createStatement();
+						stmt.executeUpdate("UPDATE Flame SET Flame=0 WHERE Time = "+flame_time+";");
 						//if(t_difference<-10000||t_difference>50000){
-						if(t_difference<-50000||t_difference>50000){
-							notification = 1;
-							System.out.println("patient is close to the gas valve");
+						if(node==1){
+							if(t_difference<-50000||t_difference>50000){
+								notification = 1;
+								System.out.println("patient is close to the gas valve");
+							}
+						}
+						else{
+							notification = 0;
+							System.out.println("patient is not close to the gas valve");
 						}
 						//this is not developed yet. disposable.
 						/*
@@ -136,7 +145,7 @@ public class JavaDatabase {
 						*/
 					}
 					
-					if(node!=1&&doorlock!=2){
+					if(gas!=1&&doorlock!=2){
 						notification = 0;
 					}
 					
@@ -148,6 +157,7 @@ public class JavaDatabase {
 			System.out.println("JDBC driver load error");
 		} catch (SQLException e) { 
 			System.out.println("DB connection error");
+			e.printStackTrace();
 		}
 		return notification; 
 	}

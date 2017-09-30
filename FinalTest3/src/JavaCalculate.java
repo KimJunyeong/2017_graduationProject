@@ -75,6 +75,7 @@ public class JavaCalculate {
 	            minIndex = i;
 	        }
 	    }
+		System.out.println(minIndex+1);
 	    //store data to db
 	    JavaDatabase.storeData(minIndex+1);
 	    JavaClient.sendNode(minIndex+1);
