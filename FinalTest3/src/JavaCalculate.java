@@ -77,8 +77,9 @@ public class JavaCalculate {
 	    }
 	    //store data to db
 	    JavaDatabase.storeData(minIndex+1);
+	    JavaClient.sendNode(minIndex+1);
 	    //danger decision
-	    JavaDatabase.decideDanger(minIndex+1);
+	    //JavaDatabase.decideDanger(minIndex+1);
 	    //this part is not developed yet
 	    //JavaDatabase.storeBeaconData(intArray);
 	}

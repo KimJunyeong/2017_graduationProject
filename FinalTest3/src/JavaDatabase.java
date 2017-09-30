@@ -81,22 +81,23 @@ public class JavaDatabase {
 			Statement stmt1 = conn.createStatement();
 			Statement stmt2 = conn.createStatement();
 			Statement stmt3 = conn.createStatement();
-			ResultSet rs1 = stmt1.executeQuery(sql1);
-			ResultSet rs2 = stmt2.executeQuery(sql2);
-			ResultSet rs3 = stmt3.executeQuery(sql3);
+			ResultSet rs1 = stmt1.executeQuery(sql1);//door
+			ResultSet rs2 = stmt2.executeQuery(sql2);//flame
+			ResultSet rs3 = stmt3.executeQuery(sql3);//location
 			
 			if(rs1.next()&&rs2.next()) { 
 				//Door data
-				Time door_time = rs1.getTime("Time");
+				int door = rs1.getInt("Door");
 				int doorlock = rs1.getInt("Doorlock");
+				Time door_time = rs1.getTime("Time");
 				//Flame data
+				Boolean gas = rs1.getBoolean("Flame");
 				Time flame_time = rs2.getTime("Time");
-				//Boolean gas = rs1.getBoolean("gas");
 				//System.out.println(s_time+", "+lock+", "+distance+", "+gas);
 				if(rs3.next()){
 					//Location data
 					Time location_time = rs3.getTime("Time");
-					int location_node = rs3.getInt("Node");
+					int location_node = rs3.getInt("Location");
 					//System.out.println(l_time+", "+l_node);
 					
 					
@@ -105,14 +106,16 @@ public class JavaDatabase {
 					if(doorlock == 2){
 						long t_difference = location_time.getTime()-door_time.getTime();
 						Statement stmt = conn.createStatement();
+						//if the sensed person is patient,
 						if(node == 10){
-							if(t_difference<-10000||t_difference>50000){
-								stmt.executeUpdate("UPDATE Door SET Doorlock=0 WHERE Time = "+door_time+";");
-								System.out.println("door not opened");
+							//if(t_difference<-10000||t_difference>50000){
+							if(t_difference<-50000||t_difference>50000){
+								stmt.executeUpdate("UPDATE Door SET Doorlock=1 WHERE Time = "+door_time+";");
+								System.out.println("door locked");
 								notification = 2;
 							}			
 						}else{
-							stmt.executeUpdate("UPDATE Door SET Doorlock=1 WHERE Time = "+door_time+";");
+							stmt.executeUpdate("UPDATE Door SET Doorlock=0 WHERE Time = "+door_time+";");
 							System.out.println("door opened");
 							notification = 0;
 						}
@@ -120,14 +123,17 @@ public class JavaDatabase {
 					
 					if(node== 1){
 						long t_difference = location_time.getTime()-flame_time.getTime();
-						if(t_difference<-10000||t_difference>50000){
+						//if(t_difference<-10000||t_difference>50000){
+						if(t_difference<-50000||t_difference>50000){
 							notification = 1;
 							System.out.println("patient is close to the gas valve");
 						}
-						//this is not developed yet. disposable. 
+						//this is not developed yet. disposable.
+						/*
 						else if(t_difference>900000){
 							System.out.println("turn off gas valve");
 						}
+						*/
 					}
 					
 					if(node!=1&&doorlock!=2){
