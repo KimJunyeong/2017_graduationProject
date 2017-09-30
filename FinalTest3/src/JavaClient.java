@@ -4,7 +4,7 @@ import java.net.Socket;
 
 public class JavaClient {
 
-	public static void sendNode(int node, int danger) {
+	public static void sendNode(int node) {
 
         Socket socket = null;
 
@@ -12,9 +12,9 @@ public class JavaClient {
 
         try {                         
             //JavaDatabase.decideDanger(node);
-            //msg+="-"+JavaDatabase.decideDanger(node);      
-        	msg = Integer.toString(node);
-    		msg += "-" + Integer.toString(danger);
+            msg+="-"+JavaDatabase.decideDanger(node);      
+        	//msg = Integer.toString(node);
+    		//msg += "-" + Integer.toString(danger);
 
             socket = new Socket("192.168.43.43", 8080);
             
