@@ -16,7 +16,7 @@ public class JavaClient {
         	//msg = Integer.toString(node);
     		//msg += "-" + Integer.toString(danger);
 
-            socket = new Socket("192.168.43.61", 8080);
+            socket = new Socket("192.168.43.1", 8080);
             
             ObjectOutputStream outputStream;
             outputStream = new ObjectOutputStream(socket.getOutputStream());
