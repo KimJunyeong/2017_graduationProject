@@ -1,10 +1,11 @@
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.TimerTask;
 
 public class JavaClient {
 
-	public static void sendNode(int node) {
+	public static TimerTask sendNode(int node) {
 
         Socket socket = null;
 
@@ -12,8 +13,6 @@ public class JavaClient {
 
         try {                         
             //JavaDatabase.decideDanger(node);
-		msg = Integer.toString(node);
-//		msg +="-1";
             msg+="-"+JavaDatabase.decideDanger(node);      
         	//msg = Integer.toString(node);
     		//msg += "-" + Integer.toString(danger);
@@ -43,5 +42,6 @@ public class JavaClient {
             }
         }
         */
+		return null;
     }
 }
