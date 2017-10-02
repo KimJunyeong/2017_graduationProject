@@ -1,17 +1,16 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
+import java.util.TimerTask;
 
-public class JavaDatabase {
-	public static void storeData(int node){
+public class JavaDatabase{
+	public static TimerTask storeData(int node){
 		String url = "jdbc:mysql://localhost:3306/Be_Care?autoReconnect=true&useSSL=false";
-		//String url = "jdbc:oracle:thin:@localhost:1521:xe/Be_Care?autoReconnect=true&useSSL=false";
 		String sql = "SELECT * FROM Location ORDER BY Time DESC LIMIT 1;";
 		
 		try {
@@ -26,10 +25,10 @@ public class JavaDatabase {
 			
 		} catch (ClassNotFoundException e) { 
 			System.out.println("JDBC driver load error");
-			System.out.println(e);
 		} catch (SQLException e) { 
 			System.out.println("DB connection error");
-		} 
+		}
+		return null; 
 	}
 	
 	//for making beacon map. WARINING: this is not finished yet.
@@ -69,8 +68,6 @@ public class JavaDatabase {
 		String sql1 = "SELECT * FROM Door ORDER BY Time DESC LIMIT 1;";
 		String sql2 = "SELECT * FROM Flame ORDER BY Time DESC LIMIT 1;";
 		String sql3 = "SELECT * FROM Location ORDER BY Time DESC LIMIT 1;";
-
-		
 		
 		int notification = 0;
 		
@@ -86,16 +83,15 @@ public class JavaDatabase {
 			ResultSet rs1 = stmt1.executeQuery(sql1);//door
 			ResultSet rs2 = stmt2.executeQuery(sql2);//flame
 			ResultSet rs3 = stmt3.executeQuery(sql3);//location
-			if(rs2.next()){
-			//if(rs1.next()||rs2.next()) { 
+			
+			if(rs1.next()&&rs2.next()) { 
 				//Door data
-				//int door = rs1.getInt("Door");
-				//int doorlock = rs1.getInt("Doorlock");
-				//Time door_time = rs1.getTime("Time");
+				int door = rs1.getInt("Door");
+				int doorlock = rs1.getInt("Doorlock");
+				Time door_time = rs1.getTime("Time");
 				//Flame data
-				int gas = rs2.getInt("Flame");
+				Boolean gas = rs1.getBoolean("Flame");
 				Time flame_time = rs2.getTime("Time");
-				System.out.println(gas+", "+ flame_time);
 				//System.out.println(s_time+", "+lock+", "+distance+", "+gas);
 				if(rs3.next()){
 					//Location data
@@ -105,51 +101,38 @@ public class JavaDatabase {
 					
 					
 					//System.out.println(t_difference);
-					/*
+					
 					if(doorlock == 2){
 						long t_difference = location_time.getTime()-door_time.getTime();
 						Statement stmt = conn.createStatement();
 						//if the sensed person is patient,
-						if(node == 7){
+						if(node == 10){
 							//if(t_difference<-10000||t_difference>50000){
-							if(t_difference<-50000||t_difference>100000){
-								stmt.executeUpdate("UPDATE Door SET Doorlock=1 WHERE Time = '" + door_time + "';");
+							if(t_difference<-50000||t_difference>50000){
+								stmt.executeUpdate("UPDATE Door SET Doorlock=1 WHERE Time = '"+door_time+";");
 								System.out.println("door locked");
 								notification = 2;
 							}			
 						}else{
-							stmt.executeUpdate("UPDATE Door SET Doorlock=0 WHERE Time = '" + door_time + "';");
+							stmt.executeUpdate("UPDATE Door SET Doorlock=0 WHERE Time = "+door_time+";");
 							System.out.println("door opened");
 							notification = 0;
 						}
 					}
-*/
-				//	notification = 1;
-					//if(node== 1){
-					if(gas!=0){
-						//long t_difference = location_time.getTime()-flame_time.getTime();
-						Statement stmt = conn.createStatement();
-						//stmt.executeUpdate("UPDATE Flame SET Flame=0 WHERE Time = '"+flame_time+"';");
+					
+					if(node== 1){
+						long t_difference = location_time.getTime()-flame_time.getTime();
 						//if(t_difference<-10000||t_difference>50000){
-						if(node==1){
-//							if(t_difference<-50000||t_difference>100000){
-								notification = 1;
-								System.out.println("patient is close to the gas valve");
-//							}
+						if(t_difference<-50000||t_difference>50000){
+							notification = 1;
+							System.out.println("patient is close to the gas valve");
 						}
-						else{
-							notification = 0;
-							System.out.println("patient is not close to the gas valve");
-						}
-						stmt.executeUpdate("UPDATE Flame SET Flame=0 WHERE Time = '"+flame_time+"';");
-						//this is not developed yet. disposable.
-						
-					}	
-/*				
-					if(gas!=1&&doorlock!=2){
-		//				notification = 0;
 					}
-*/					
+					
+					if(node!=1&&doorlock!=2){
+						notification = 0;
+					}
+					
 				}
 				
 			}
