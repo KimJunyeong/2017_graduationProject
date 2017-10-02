@@ -1,3 +1,5 @@
+import java.util.Timer;
+
 public class JavaCalculate {
 
 	public static void findNode(String line){
@@ -75,10 +77,12 @@ public class JavaCalculate {
 	            minIndex = i;
 	        }
 	    }
-		System.out.println(minIndex+1);
+	    Timer timer = new Timer();
+		timer.schedule(new JavaDatabase().storeData(minIndex+1), 0, 1000);
+		timer.schedule(new JavaClient().sendNode(minIndex+1), 0, 1000);
 	    //store data to db
-	    JavaDatabase.storeData(minIndex+1);
-	    JavaClient.sendNode(minIndex+1);
+	    //JavaDatabase.storeData(minIndex+1);
+	    //JavaClient.sendNode(minIndex+1);
 	    //danger decision
 	    //JavaDatabase.decideDanger(minIndex+1);
 	    //this part is not developed yet

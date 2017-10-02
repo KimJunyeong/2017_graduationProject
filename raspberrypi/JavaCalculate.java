@@ -64,7 +64,7 @@ public class JavaCalculate {
 				diff[i][j] = (int) Math.pow(temp, 2);
 				tdiff[i] += diff[i][j];
 			}
-			System.out.print(tdiff[i]+":");
+			//System.out.print(tdiff[i]+":");
 		}
         
         minIndex = 0;
@@ -75,7 +75,7 @@ public class JavaCalculate {
 	            minIndex = i;
 	        }
 	    }
-	    
+	    System.out.println(minIndex+1 + " is the closest node. ");
 	    if(minIndex>5 && minIndex<9){		//node 7 8 9
 	    	//JavaClient.sendNode(7);
 	    } else{

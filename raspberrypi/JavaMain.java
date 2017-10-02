@@ -9,9 +9,9 @@ import java.net.Socket;
 
 public class JavaMain {
 	public static void main(String[] args){
-		//getBeacon();
+		getBeacon();
 
-	    JavaClient.sendNode(1, 1);	
+	   // JavaClient.sendNode(1, 1);	
 	}
 	
 

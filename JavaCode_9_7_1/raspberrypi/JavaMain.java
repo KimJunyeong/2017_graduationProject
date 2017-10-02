@@ -38,7 +38,7 @@ public class JavaMain {
             String line;
             
             while((line=bufferedReader.readLine()) != null){
-            	JavaCalculate.findNode(line);
+		JavaCalculate.findNode(line);
             }
             
         } catch(IOException e){

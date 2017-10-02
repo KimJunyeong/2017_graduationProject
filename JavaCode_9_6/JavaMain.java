@@ -1,4 +1,4 @@
-package raspberrypi;
+package JavaCode_9_6;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,9 +9,9 @@ import java.net.Socket;
 
 public class JavaMain {
 	public static void main(String[] args){
-		//getBeacon();
+		getBeacon();
 
-	    JavaClient.sendNode(5, 0);	
+	    //JavaClient.sendNode(5, 0);	
 	}
 	
 
@@ -21,7 +21,8 @@ public class JavaMain {
         Socket socket = null;
         BufferedReader bufferedReader = null;
         PrintStream printStream = null;
-		
+	JavaCalculate calculation = new JavaCalculate(String);	
+	
         try{
         	serverSocket = new ServerSocket(55547);
             System.out.println("I'm waiting here: " 
@@ -38,7 +39,7 @@ public class JavaMain {
             String line;
             
             while((line=bufferedReader.readLine()) != null){
-                JavaCalculate.findNode(line);
+                calculation.findNode(line);
             }
             
         } catch(IOException e){

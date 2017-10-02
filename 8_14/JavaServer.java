@@ -20,14 +20,13 @@ public class JavaServer {
         String[] name_value = null;
         int[] intArray = new int[6];
         
-        int node[10][6] = {
+        int node[][] = {
 				{-95,-90,-83,-93,-90,-92},
 				{-95,-90,-86,-86,-89,-94},
 				{-95,-92,-92,-82,-89,-93},
 				{-96,-81,-86,-90,-90,-94},
 				{-93,-84,-88,-88,-89,-90},
-				{-92,-92,-91,-85,-80,-85},
-				{-83,-87,-92,-95,-91,-91},
+				{-92,-92,-91,-85,-80,-85},				{-83,-87,-92,-95,-91,-91},
 				{-87,-89,-91,-94,-85,-84},
 				{-90,-94,-95,-95,-89,-84},
 				{-91,-93,-94,-95,-90,-88}
@@ -77,7 +76,7 @@ public class JavaServer {
                         case "door":
                             intArray[5] = Integer.parseInt(name_value[1]);
                             break;
-                        case default:
+                        default:
                             break;
                     }
                 }
@@ -100,7 +99,7 @@ public class JavaServer {
     		    System.out.println(minIndex+1 +" is the closest node");
     		    //database.storeData();
     		    //database.getData();
-    		    JavaClient.sendNode(minIndex+1);
+    		    //JavaClient.sendNode(minIndex+1);
             }
         }catch(IOException e){
             System.out.println(e.toString());
