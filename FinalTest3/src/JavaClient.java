@@ -12,11 +12,13 @@ public class JavaClient {
 
         try {                         
             //JavaDatabase.decideDanger(node);
+		msg = Integer.toString(node);
+//		msg +="-1";
             msg+="-"+JavaDatabase.decideDanger(node);      
         	//msg = Integer.toString(node);
     		//msg += "-" + Integer.toString(danger);
 
-            socket = new Socket("192.168.43.1", 8080);
+            socket = new Socket("192.168.43.43", 8080);
             
             ObjectOutputStream outputStream;
             outputStream = new ObjectOutputStream(socket.getOutputStream());
