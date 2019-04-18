@@ -5,6 +5,13 @@
 
 ## Getting Started
 
+> Hardware used in this project
+- 2 Android phones(Samsung Galaxy Note 4 and 5)
+- 6 beacons(Estimote Sticker Beacon)
+- Flame detecting sensor(FS-1) & Infrared PIR Motion Sensor(HC-SR501)
+- Raspberry Pi3
+- Door lock
+
 ## File Illustration
 
 ## Run
